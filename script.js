@@ -1,5 +1,5 @@
 // NOAGAGIN: tasteful chaos, locally served.
-console.log("👋 Hi. If you’re reading this, you’re my kind of person.");
+console.log("👋 Hi.");
 
 const toastEl = document.getElementById("toast");
 const brandTitle = document.getElementById("brandTitle");
@@ -55,4 +55,5 @@ watchfacesCard?.addEventListener("click", () => {
     wfClicks = 0;
   }
 });
+
 
