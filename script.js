@@ -19,10 +19,10 @@ let titleClicks = 0;
 brandTitle.addEventListener("click", () => {
   titleClicks++;
   if (titleClicks === 5){
-    toast("מצאתי אותך 😈  NOAGAGIN = שם שנועד לבלבל את האויב.");
+    toast("c u 😈  NOAGAGIN = gaming time.");
     titleClicks = 0;
   } else {
-    toast("כן כן… זה השם. 😎");
+    toast("ganes games games. 😎");
   }
 });
 
@@ -42,8 +42,8 @@ window.addEventListener("keydown", (e) => {
 });
 
 // Little buttons
-btnPing?.addEventListener("click", () => toast("דופק תקין. קצת ציניות. הרבה כלבים."));
-btnSurprise?.addEventListener("click", () => toast("הפתעה: את באמת עושה דברים. אנשים רק מדברים."));
+btnPing?.addEventListener("click", () => toast("good time for a book."));
+btnSurprise?.addEventListener("click", () => toast("Lions and Tigers and Bears"));
 
 
 // Bonus: click watchfaces card 3 times
@@ -55,3 +55,4 @@ watchfacesCard?.addEventListener("click", () => {
     wfClicks = 0;
   }
 });
+
