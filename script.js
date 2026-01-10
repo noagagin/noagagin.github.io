@@ -1,5 +1,6 @@
 // NOAGAGIN: tasteful chaos, locally served.
-console.log("👋 Hi.");
+// Quiet mode. No fireworks. Just… competence.
+console.log("NOAGAGIN");
 
 const toastEl = document.getElementById("toast");
 const brandTitle = document.getElementById("brandTitle");
@@ -8,52 +9,72 @@ const btnPing = document.getElementById("btnPing");
 const btnSurprise = document.getElementById("btnSurprise");
 
 function toast(msg){
+  // subtle toast: short + rare
+  if (!toastEl) return;
   toastEl.textContent = msg;
   toastEl.classList.add("show");
   clearTimeout(toastEl._t);
-  toastEl._t = setTimeout(()=>toastEl.classList.remove("show"), 2400);
+  toastEl._t = setTimeout(()=>toastEl.classList.remove("show"), 1600);
 }
 
-// Easter Egg #1: click the title 5 times
-let titleClicks = 0;
-brandTitle.addEventListener("click", () => {
-  titleClicks++;
-  if (titleClicks === 5){
-    toast("c u 😈  NOAGAGIN = gaming time.");
-    titleClicks = 0;
-  } else {
-    toast("ganes games games. 😎");
+/**
+ * Easter Egg #1 (Hidden, subtle):
+ * Click the title 7 times within 3 seconds.
+ * (No one does this accidentally.)
+ */
+let tClicks = 0;
+let tTimer = null;
+
+brandTitle?.addEventListener("click", () => {
+  tClicks++;
+  clearTimeout(tTimer);
+  tTimer = setTimeout(() => { tClicks = 0; }, 3000);
+
+  if (tClicks === 7) {
+    toast("Hello, curious human.");
+    tClicks = 0;
   }
 });
 
-// Easter Egg #2: type 'pebble' anywhere
+/**
+ * Easter Egg #2 (Very hidden):
+ * Type "noagagin" anywhere → toggles a very subtle theme shift.
+ * No grayscale. No drama. Just tiny refinement.
+ */
 let buffer = "";
 window.addEventListener("keydown", (e) => {
-  if (e.key.length === 1){
-    buffer = (buffer + e.key.toLowerCase()).slice(-10);
-    if (buffer.endsWith("pebble")){
-      document.body.classList.toggle("pebble-mode");
-      toast(document.body.classList.contains("pebble-mode")
-        ? "🕶️ Pebble Mode ON. Long live the round screen."
-        : "🎨 Pebble Mode OFF. Back to color like a responsible adult.");
+  // Ignore if user is typing in an input/textarea (future-proof)
+  const tag = (document.activeElement?.tagName || "").toLowerCase();
+  if (tag === "input" || tag === "textarea") return;
+
+  if (e.key.length === 1) {
+    buffer = (buffer + e.key.toLowerCase()).slice(-16);
+
+    if (buffer.endsWith("noagagin")) {
+      document.body.classList.toggle("elegant-mode");
+      toast(document.body.classList.contains("elegant-mode")
+        ? "Elegant mode."
+        : "Standard mode.");
       buffer = "";
     }
   }
 });
 
-// Little buttons
-btnPing?.addEventListener("click", () => toast("good time for a book."));
-btnSurprise?.addEventListener("click", () => toast("Lions and Tigers and Bears"));
-
-
-// Bonus: click watchfaces card 3 times
-let wfClicks = 0;
-watchfacesCard?.addEventListener("click", () => {
-  wfClicks++;
-  if (wfClicks === 3){
-    toast("Pinky & The Brain were here. 🧠🐭");
-    wfClicks = 0;
-  }
+/**
+ * Easter Egg #3 (Whisper-level):
+ * Long-press on Watchfaces card (mouse down for 1.2s)
+ */
+let pressTimer = null;
+watchfacesCard?.addEventListener("mousedown", () => {
+  pressTimer = setTimeout(() => {
+    toast("⌚ Still ticking.");
+  }, 1200);
 });
+watchfacesCard?.addEventListener("mouseup", () => clearTimeout(pressTimer));
+watchfacesCard?.addEventListener("mouseleave", () => clearTimeout(pressTimer));
 
-
+/**
+ * Buttons — keep them calm and useful
+ */
+btnPing?.addEventListener("click", () => toast("All good."));
+btnSurprise?.addEventListener("click", () => toast("Nice.")); 
