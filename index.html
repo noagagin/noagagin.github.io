@@ -4,28 +4,377 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>NOAGAGIN</title>
+  <style>
+    :root{
+      --bg: #0a0e27;
+      --card: #141829;
+      --text: #e8ecff;
+      --muted: #a0a8d4;
+      --line: rgba(255,255,255,0.08);
+      --accent: #8b5cf6;
+      --accent2:#06b6d4;
+      --glow: rgba(139, 92, 246, 0.3);
+      --shadow: 0 20px 60px rgba(0,0,0,.4);
+      --radius: 20px;
+    }
 
-  <!-- Favicon -->
-  <link rel="icon" href="assets/img/dogs-icon.png">
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg: #f8f9fd;
+        --card:#ffffff;
+        --text:#0f172a;
+        --muted:#64748b;
+        --line: rgba(15,23,42,0.12);
+        --glow: rgba(139, 92, 246, 0.15);
+        --shadow: 0 20px 60px rgba(15, 23, 42, .08);
+      }
+    }
 
-  <!-- Styles -->
-  <link rel="stylesheet" href="style.css" />
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Hebrew", sans-serif;
+      background: radial-gradient(1400px 800px at 30% -5%, rgba(139,92,246,.2), transparent),
+                  radial-gradient(1200px 700px at 85% 10%, rgba(6,182,212,.15), transparent),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .wrap{ max-width: 1200px; margin: 0 auto; padding: 32px 24px; }
+
+    /* Header */
+    .header{
+      display:flex;
+      gap: 24px;
+      align-items:center;
+      justify-content: space-between;
+      padding: 40px 0 48px;
+      flex-wrap: wrap;
+    }
+
+    .brand-section{
+      flex: 1;
+      min-width: 280px;
+    }
+
+    .brand h1{
+      font-size: 56px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      cursor: pointer;
+      user-select: none;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+
+    .brand h1:hover{
+      transform: scale(1.02);
+    }
+
+    .tagline{
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .links{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .pill{
+      text-decoration:none;
+      color: var(--text);
+      border:1px solid var(--line);
+      padding: 12px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(10px);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 14px;
+      font-weight: 500;
+    }
+    
+    .pill:hover{ 
+      transform: translateY(-2px); 
+      background: rgba(255,255,255,0.08);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    /* Grid */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .card{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .card::before{
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover{
+      transform: translateY(-4px);
+      box-shadow: 0 24px 80px rgba(0,0,0,.5), 0 0 40px var(--glow);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .card:hover::before{
+      opacity: 1;
+    }
+
+    .thumb{
+      border-radius: calc(var(--radius) - 8px);
+      overflow:hidden;
+      background: rgba(255,255,255,0.06);
+      aspect-ratio: 16 / 10;
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .thumb img{ 
+      width:100%; 
+      height:100%; 
+      object-fit: cover; 
+      display:block;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover .thumb img{
+      transform: scale(1.05);
+    }
+
+    .thumb.alt{ 
+      display:flex; 
+      align-items:center; 
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(6,182,212,0.1));
+    }
+    
+    .thumb.alt img{ 
+      object-fit: contain; 
+      padding: 24px;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2));
+    }
+
+    .thumb.mini{ 
+      aspect-ratio: 16/9; 
+      display:flex; 
+      align-items:center; 
+      justify-content:center;
+      background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(6,182,212,0.15));
+    }
+
+    .nowBox{
+      width:100%;
+      height:100%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .nowTitle{ 
+      font-weight: 800; 
+      font-size: 24px; 
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .nowText{ 
+      color: var(--muted); 
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .card h2{ 
+      margin: 0 0 8px; 
+      font-size: 22px;
+      font-weight: 700;
+    }
+    
+    .card p{ 
+      margin: 0 0 16px; 
+      color: var(--muted); 
+      line-height: 1.6; 
+      font-size: 15px; 
+    }
+
+    .cardLinks{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .small{
+      border:1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration:none;
+      transition: all 0.2s ease;
+      display: inline-block;
+    }
+    
+    .small:hover{ 
+      transform: translateY(-1px); 
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.15);
+    }
+
+    .disabled{
+      opacity: .45;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    .badge{
+      display:inline-block;
+      font-size: 12px;
+      color: var(--text);
+      border:1px solid rgba(139,92,246,0.3);
+      background: rgba(139,92,246,.15);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .footer{
+      margin: 32px 0 16px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      display:flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    
+    .hint b{ 
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      padding: 16px 20px;
+      border-radius: 16px;
+      border:1px solid var(--line);
+      background: rgba(20, 24, 36, .95);
+      backdrop-filter: blur(20px);
+      color: var(--text);
+      box-shadow: 0 20px 60px rgba(0,0,0,.4);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      max-width: 400px;
+      pointer-events: none;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 1000;
+    }
+
+    .toast.show{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Pebble Mode */
+    body.pebble-mode{
+      filter: grayscale(1) contrast(1.08);
+      animation: pebbleGlitch 0.3s ease;
+    }
+
+    @keyframes pebbleGlitch {
+      0%, 100% { filter: grayscale(1) contrast(1.08); }
+      50% { filter: grayscale(1) contrast(1.2) brightness(1.1); }
+    }
+
+    body.pebble-mode .brand h1{
+      color: var(--text);
+      -webkit-text-fill-color: var(--text);
+      background: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px){
+      .brand h1{ font-size: 42px; }
+      .header{ padding: 24px 0 32px; }
+      .grid{ grid-template-columns: 1fr; gap: 20px; }
+      .toast{ left: 16px; bottom: 16px; max-width: calc(100vw - 32px); }
+    }
+
+    /* Subtle animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .thumb.alt img{
+      animation: float 4s ease-in-out infinite;
+    }
+  </style>
 </head>
 
 <body>
   <!-- Header -->
   <header class="wrap header">
-    <div class="brand">
-      <h1 id="brandTitle" title="Yes. This is the name.">NOAGAGIN</h1>
-      <p class="tagline">
-        Apps, watchfaces, books — and other responsible chaos.
-      </p>
+    <div class="brand-section">
+      <div class="brand">
+        <h1 id="brandTitle" title="Yes. This is the name.">NOAGAGIN</h1>
+        <p class="tagline">
+          Apps, watchfaces, books — and other responsible chaos.
+        </p>
+      </div>
     </div>
 
     <nav class="links">
       <a class="pill" href="https://www.goodreads.com/review/list/7566580-noa?page=1&ref=nav_mybooks&shelf=currently-reading"
          target="_blank" rel="noopener">
-        📚 What I’m reading
+        📚 Reading
       </a>
       <a class="pill" href="https://www.linkedin.com/in/noa-gagin-a5b6642/"
          target="_blank" rel="noopener">
@@ -33,7 +382,7 @@
       </a>
       <a class="pill" href="https://github.com/noagagin"
          target="_blank" rel="noopener">
-        🐙 GitHub
+        🙀 GitHub
       </a>
     </nav>
   </header>
@@ -112,9 +461,9 @@
             </div>
           </div>
         </div>
-        <h2>What’s happening now</h2>
+        <h2>What's happening now</h2>
         <p>
-          If something moves here — it’s either an update…
+          If something moves here — it's either an update…
           or an Easter egg.
         </p>
         <div class="cardLinks">
@@ -140,7 +489,63 @@
   <!-- Toast -->
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
-  <!-- Scripts -->
-  <script src="script.js"></script>
+  <script>
+    // NOAGAGIN: tasteful chaos, locally served.
+    console.log("👋 Hi. If you're reading this, you're my kind of person.");
+
+    const toastEl = document.getElementById("toast");
+    const brandTitle = document.getElementById("brandTitle");
+    const watchfacesCard = document.getElementById("watchfacesCard");
+    const btnPing = document.getElementById("btnPing");
+    const btnSurprise = document.getElementById("btnSurprise");
+
+    function toast(msg){
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(toastEl._t);
+      toastEl._t = setTimeout(()=>toastEl.classList.remove("show"), 2800);
+    }
+
+    // Easter Egg #1: click the title 5 times
+    let titleClicks = 0;
+    brandTitle.addEventListener("click", () => {
+      titleClicks++;
+      if (titleClicks === 5){
+        toast("מצאתי אותך 😈  NOAGAGIN = שם שנועד לבלבל את האויב.");
+        titleClicks = 0;
+      } else {
+        toast("כן כן… זה השם. 😎");
+      }
+    });
+
+    // Easter Egg #2: type 'pebble' anywhere
+    let buffer = "";
+    window.addEventListener("keydown", (e) => {
+      if (e.key.length === 1){
+        buffer = (buffer + e.key.toLowerCase()).slice(-10);
+        if (buffer.endsWith("pebble")){
+          document.body.classList.toggle("pebble-mode");
+          toast(document.body.classList.contains("pebble-mode")
+            ? "🕶️ Pebble Mode ON. Long live the round screen."
+            : "🎨 Pebble Mode OFF. Back to color like a responsible adult.");
+          buffer = "";
+        }
+      }
+    });
+
+    // Little buttons
+    btnPing?.addEventListener("click", () => toast("דופק תקין. קצת ציניות. הרבה כלבים."));
+    btnSurprise?.addEventListener("click", () => toast("הפתעה: את באמת עושה דברים. אנשים רק מדברים."));
+
+    // Bonus: click watchfaces card 3 times
+    let wfClicks = 0;
+    watchfacesCard?.addEventListener("click", () => {
+      wfClicks++;
+      if (wfClicks === 3){
+        toast("Pinky & The Brain were here. 🧠🐭");
+        wfClicks = 0;
+      }
+    });
+  </script>
 </body>
 </html>
