@@ -1,50 +1,50 @@
-// NOAGAGIN: tasteful chaos, locally served.
-// Quiet mode. No fireworks. Just… competence.
+// NOAGAGIN — quiet, elegant, intentional.
 console.log("NOAGAGIN");
 
 const toastEl = document.getElementById("toast");
 const brandTitle = document.getElementById("brandTitle");
 const watchfacesCard = document.getElementById("watchfacesCard");
-const btnPing = document.getElementById("btnPing");
-const btnSurprise = document.getElementById("btnSurprise");
 
 function toast(msg){
-  // subtle toast: short + rare
   if (!toastEl) return;
   toastEl.textContent = msg;
   toastEl.classList.add("show");
   clearTimeout(toastEl._t);
-  toastEl._t = setTimeout(()=>toastEl.classList.remove("show"), 1600);
+  toastEl._t = setTimeout(() => {
+    toastEl.classList.remove("show");
+  }, 1600);
 }
 
 /**
- * Easter Egg #1 (Hidden, subtle):
- * Click the title 7 times within 3 seconds.
- * (No one does this accidentally.)
+ * Easter Egg #1 (very hidden):
+ * Click the site title 7 times within ~3 seconds.
  */
-let tClicks = 0;
-let tTimer = null;
+let titleClicks = 0;
+let titleTimer = null;
 
-brandTitle?.addEventListener("click", () => {
-  tClicks++;
-  clearTimeout(tTimer);
-  tTimer = setTimeout(() => { tClicks = 0; }, 3000);
+if (brandTitle) {
+  brandTitle.addEventListener("click", () => {
+    titleClicks++;
+    clearTimeout(titleTimer);
+    titleTimer = setTimeout(() => {
+      titleClicks = 0;
+    }, 3000);
 
-  if (tClicks === 7) {
-    toast("Hello, curious human.");
-    tClicks = 0;
-  }
-});
+    if (titleClicks === 7) {
+      toast("Hello, curious human.");
+      titleClicks = 0;
+    }
+  });
+}
 
 /**
- * Easter Egg #2 (Very hidden):
- * Type "noagagin" anywhere → toggles a very subtle theme shift.
- * No grayscale. No drama. Just tiny refinement.
+ * Easter Egg #2 (extremely subtle):
+ * Type "noagagin" anywhere.
  */
 let buffer = "";
+
 window.addEventListener("keydown", (e) => {
-  // Ignore if user is typing in an input/textarea (future-proof)
-  const tag = (document.activeElement?.tagName || "").toLowerCase();
+  const tag = document.activeElement?.tagName?.toLowerCase();
   if (tag === "input" || tag === "textarea") return;
 
   if (e.key.length === 1) {
@@ -52,29 +52,34 @@ window.addEventListener("keydown", (e) => {
 
     if (buffer.endsWith("noagagin")) {
       document.body.classList.toggle("elegant-mode");
-      toast(document.body.classList.contains("elegant-mode")
-        ? "Elegant mode."
-        : "Standard mode.");
+      toast(
+        document.body.classList.contains("elegant-mode")
+          ? "Elegant mode."
+          : "Standard mode."
+      );
       buffer = "";
     }
   }
 });
 
 /**
- * Easter Egg #3 (Whisper-level):
- * Long-press on Watchfaces card (mouse down for 1.2s)
+ * Easter Egg #3 (whisper-level):
+ * Long press on Watchfaces card.
  */
 let pressTimer = null;
-watchfacesCard?.addEventListener("mousedown", () => {
-  pressTimer = setTimeout(() => {
-    toast("⌚ Still ticking.");
-  }, 1200);
-});
-watchfacesCard?.addEventListener("mouseup", () => clearTimeout(pressTimer));
-watchfacesCard?.addEventListener("mouseleave", () => clearTimeout(pressTimer));
 
-/**
- * Buttons — keep them calm and useful
- */
-btnPing?.addEventListener("click", () => toast("All good."));
-btnSurprise?.addEventListener("click", () => toast("Nice.")); 
+if (watchfacesCard) {
+  watchfacesCard.addEventListener("mousedown", () => {
+    pressTimer = setTimeout(() => {
+      toast("Still ticking.");
+    }, 1200);
+  });
+
+  watchfacesCard.addEventListener("mouseup", () => {
+    clearTimeout(pressTimer);
+  });
+
+  watchfacesCard.addEventListener("mouseleave", () => {
+    clearTimeout(pressTimer);
+  });
+}
