@@ -214,8 +214,21 @@ body{
   opacity: 1;
   transform: translateY(0);
 }
+/* Ultra subtle "elegant-mode" */
+body.elegant-mode .card{
+  box-shadow: 0 14px 40px rgba(17, 24, 39, .10);
+}
+body.elegant-mode .pill:hover,
+body.elegant-mode .small:hover{
+  background: rgba(31,58,138,0.08);
+}
+body.elegant-mode .brand h1{
+  letter-spacing: 1.2px;
+}
+
 
 /* Pebble mode (still subtle) */
 body.pebble-mode{
   filter: grayscale(1) contrast(1.05);
 }
+
