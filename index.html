@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NOAGAGIN</title>
+  <link rel="icon" href="assets/img/dogs-icon.png">
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header class="wrap header">
+    <div class="brand">
+      <h1 id="brandTitle" title="אל תנסי לפענח. זה השם.">NOAGAGIN</h1>
+      <p class="tagline">Apps, watchfaces, books — and other responsible chaos.</p>
+    </div>
+
+    <nav class="links">
+      <a class="pill" href="https://www.goodreads.com/review/list/7566580-noa?page=1&ref=nav_mybooks&shelf=currently-reading" target="_blank" rel="noopener">📚 מה אני קוראת</a>
+      <a class="pill" href="https://www.linkedin.com/in/noa-gagin-a5b6642/" target="_blank" rel="noopener">💼 LinkedIn</a>
+      <a class="pill" href="https://github.com/noagagin" target="_blank" rel="noopener">🐙 GitHub</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section class="grid">
+      <!-- Shuk Shenanigans -->
+      <article class="card">
+        <div class="thumb">
+          <img src="assets/img/shuk-lists.jpg" alt="Shuk & Shenanigans - lists screen">
+        </div>
+        <h2>Shuk &amp; Shenanigans</h2>
+        <p>רשימות קניות שיתופיות עם וייב של כלבלבים. (כי למה לחיות בלי.)</p>
+        <div class="cardLinks">
+          <a href="#" class="small disabled" aria-disabled="true">דמו (בהמשך)</a>
+          <a href="https://github.com/noagagin" class="small" target="_blank" rel="noopener">קוד / GitHub</a>
+        </div>
+        <span class="badge">Firebase • Real-time • Cute</span>
+      </article>
+
+      <!-- MyPass -->
+      <article class="card">
+        <div class="thumb">
+          <img src="assets/img/mypass.jpg" alt="MyPass - login screen mockup">
+        </div>
+        <h2>MyPass</h2>
+        <p>כספת סיסמאות Offline-first. צילום מסך חסום — כמו שצריך. 😈</p>
+        <div class="cardLinks">
+          <a href="#" class="small disabled" aria-disabled="true">מוקאפים (בקרוב)</a>
+          <a href="#" class="small disabled" aria-disabled="true">פרטים</a>
+        </div>
+        <span class="badge">Offline • Local vault • No cloud drama</span>
+      </article>
+
+      <!-- Pebble Watchfaces -->
+      <article class="card" id="watchfacesCard">
+        <div class="thumb alt">
+          <img src="assets/img/dogs-icon.png" alt="Dogs icon">
+        </div>
+        <h2>Pebble Watchfaces</h2>
+        <p>כן, Pebble עדיין חי. פשוט עבר דירה. 🕶️</p>
+        <div class="cardLinks">
+          <a class="small" href="https://dev-portal.rebble.io/profile" target="_blank" rel="noopener">Rebble Dev</a>
+          <a class="small" href="https://appstore-api.repebble.com/dashboard" target="_blank" rel="noopener">RePebble Dashboard</a>
+        </div>
+        <span class="badge">Legacy • Rebble • RePebble</span>
+      </article>
+
+      <!-- Now -->
+      <article class="card">
+        <div class="thumb mini">
+          <div class="nowBox">
+            <div class="nowTitle">Now</div>
+            <div class="nowText">בונה דברים חמודים. שוברת דברים משעממים.</div>
+          </div>
+        </div>
+        <h2>מה קורה עכשיו</h2>
+        <p>אם את רואה פה משהו זז — זה או עדכון… או Easter Egg.</p>
+        <div class="cardLinks">
+          <button class="small" id="btnPing">בדיקת דופק</button>
+          <button class="small" id="btnSurprise">הפתעה</button>
+        </div>
+        <span class="badge">Minimal • Practical • Slightly unhinged</span>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>© NOAGAGIN • Built on GitHub Pages • No hosting drama.</span>
+      <span class="hint">רמז: נסי להקליד <b>pebble</b> במקלדת 😉</span>
+    </footer>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
