@@ -232,3 +232,20 @@ body.pebble-mode{
   filter: grayscale(1) contrast(1.05);
 }
 
+/* COLOR BANDS */
+.band{ padding: 70px 0; }
+
+.band-blue{
+  background: linear-gradient(135deg, #4f7cff, #6dd5fa);
+}
+
+.band-purple{
+  background: linear-gradient(135deg, #8e7cc3, #d9a7c7);
+}
+
+.band-yellow{
+  background: linear-gradient(135deg, #f6d365, #fda085);
+}
+
+.band .wrap{ background: transparent; }
+
