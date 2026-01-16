@@ -3,121 +3,450 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>NOAGAGIN</title>
-
-  <!-- Use your external CSS file -->
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Favicon -->
+  <title>NOAGAGIN - Developer Portfolio</title>
   <link rel="icon" href="assets/img/dogs-icon.png">
+  <style>
+    :root {
+      --bg-primary: #0a0a0a;
+      --bg-secondary: #1a1a1a;
+      --bg-card: #161616;
+      --text-primary: #e8e8e8;
+      --text-secondary: #a0a0a0;
+      --accent: #c0c0c0;
+      --accent-hover: #ffffff;
+      --border: rgba(255, 255, 255, 0.08);
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header {
+      padding: 60px 0 40px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .brand h1 {
+      font-size: 48px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      color: var(--accent-hover);
+      margin-bottom: 12px;
+    }
+
+    .tagline {
+      font-size: 16px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    nav {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .nav-link {
+      padding: 10px 20px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 14px;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .nav-link:hover {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+    }
+
+    /* Main Content */
+    main {
+      padding: 60px 0;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow);
+      transform: translateY(-4px);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .project-content {
+      padding: 24px;
+    }
+
+    .project-title {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .project-description {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+
+    .project-links {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--text-primary);
+      font-size: 13px;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+    }
+
+    .btn:hover:not(.disabled) {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent);
+    }
+
+    .btn.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      background: rgba(192, 192, 192, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(192, 192, 192, 0.2);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Now Section */
+    .now-card {
+      background: linear-gradient(135deg, var(--bg-card) 0%, #1f1f1f 100%);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 32px;
+      margin-bottom: 60px;
+    }
+
+    .now-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .now-text h2 {
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: var(--accent-hover);
+    }
+
+    .now-text p {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+    }
+
+    .now-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .now-status {
+      text-align: center;
+      padding: 40px;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .status-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+
+    .status-value {
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--accent-hover);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      padding: 16px 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      box-shadow: var(--shadow);
+      color: var(--text-primary);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      pointer-events: none;
+      max-width: 400px;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+      }
+
+      .brand h1 {
+        font-size: 36px;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .now-content {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 
 <body>
-
-  <!-- BLUE BAND: Header -->
-  <section class="band band-blue">
-    <header class="wrap header">
-      <div class="brand">
-        <h1 id="brandTitle" title="Yes. This is the name.">NOAGAGIN</h1>
-        <p class="tagline">Apps, watchfaces, books — and other responsible chaos.</p>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="brand">
+          <h1>NOAGAGIN</h1>
+          <p class="tagline">Developer & Creator — Building Digital Solutions</p>
+        </div>
+        <nav>
+          <a class="nav-link" href="https://www.goodreads.com/review/list/7566580-noa" target="_blank" rel="noopener">Reading List</a>
+          <a class="nav-link" href="https://www.linkedin.com/in/noa-gagin-a5b6642/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="nav-link" href="https://github.com/noagagin" target="_blank" rel="noopener">GitHub</a>
+        </nav>
       </div>
+    </div>
+  </header>
 
-      <nav class="links">
-        <a class="pill"
-           href="https://www.goodreads.com/review/list/7566580-noa?page=1&ref=nav_mybooks&shelf=currently-reading"
-           target="_blank" rel="noopener">📚 Reading</a>
-
-        <a class="pill"
-           href="https://www.linkedin.com/in/noa-gagin-a5b6642/"
-           target="_blank" rel="noopener">💼 LinkedIn</a>
-
-        <a class="pill"
-           href="https://github.com/noagagin"
-           target="_blank" rel="noopener">🐙 GitHub</a>
-      </nav>
-    </header>
-  </section>
-
-  <!-- PURPLE BAND: Main cards -->
-  <section class="band band-purple">
-    <main class="wrap">
-      <section class="grid">
-
+  <main>
+    <div class="container">
+      <div class="projects-grid">
         <!-- Shuk & Shenanigans -->
-        <article class="card">
-          <div class="thumb">
-            <img src="assets/img/shuk-lists.jpg" alt="Shuk & Shenanigans app screenshot">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/img/shuk-lists.jpg" alt="Shuk & Shenanigans">
           </div>
-          <h2>Shuk &amp; Shenanigans</h2>
-          <p>Shared shopping lists with dog vibes. Because life is too short for boring groceries.</p>
-          <div class="cardLinks">
-            <a href="#" class="small disabled" aria-disabled="true">Demo (coming soon)</a>
-            <a href="https://github.com/noagagin" class="small" target="_blank" rel="noopener">Code / GitHub</a>
-          </div>
-          <span class="badge">Firebase • Real-time</span>
-        </article>
-
-        <!-- MyPass -->
-        <article class="card">
-          <div class="thumb">
-            <img src="assets/img/mypass.png" alt="MyPass login mockup">
-          </div>
-          <h2>MyPass</h2>
-          <p>Offline-first password vault designed for privacy.</p>
-          <div class="cardLinks">
-            <a href="#" class="small disabled" aria-disabled="true">Mockups (soon)</a>
-            <a href="#" class="small disabled" aria-disabled="true">Details</a>
-          </div>
-          <span class="badge">Offline • Local-only</span>
-        </article>
-
-        <!-- Pebble Watchfaces -->
-        <article class="card" id="watchfacesCard">
-          <div class="thumb alt">
-            <img src="assets/img/dogs-icon.png" alt="Dog icon">
-          </div>
-          <h2>Pebble Watchfaces</h2>
-          <p>Originally published for Pebble, maintained via Rebble / RePebble.</p>
-          <div class="cardLinks">
-            <a class="small" href="https://dev-portal.rebble.io/profile" target="_blank" rel="noopener">Rebble Dev</a>
-            <a class="small" href="https://appstore-api.repebble.com/dashboard" target="_blank" rel="noopener">RePebble</a>
-          </div>
-          <span class="badge">Pebble • Rebble</span>
-        </article>
-
-        <!-- Now -->
-        <article class="card">
-          <div class="thumb mini">
-            <div class="nowBox">
-              <div class="nowTitle">Currently</div>
-              <div class="nowText">Building and refining small, useful tools.</div>
+          <div class="project-content">
+            <h3 class="project-title">Shuk & Shenanigans</h3>
+            <p class="project-description">Real-time collaborative shopping list application with Firebase backend. Features shared lists, live updates, and intuitive user interface.</p>
+            <div class="project-links">
+              <a href="#" class="btn disabled">Demo</a>
+              <a href="https://github.com/noagagin" class="btn" target="_blank" rel="noopener">View Code</a>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Firebase</span>
+              <span class="tag">Real-time</span>
+              <span class="tag">PWA</span>
             </div>
           </div>
-          <h2>Status</h2>
-          <p>Quiet updates. Subtle improvements. Occasional mischief.</p>
-          <div class="cardLinks">
-            <button class="small" id="btnPing" type="button">Pulse</button>
-            <button class="small" id="btnSurprise" type="button">Note</button>
+        </div>
+
+        <!-- MyPass -->
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/img/mypass.jpg" alt="MyPass">
           </div>
-          <span class="badge">Minimal • Practical</span>
-        </article>
+          <div class="project-content">
+            <h3 class="project-title">MyPass</h3>
+            <p class="project-description">Secure offline-first password vault with local encryption. Zero cloud dependencies, screenshot protection, and biometric authentication support.</p>
+            <div class="project-links">
+              <a href="#" class="btn disabled">Documentation</a>
+              <a href="#" class="btn disabled">Details</a>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Offline</span>
+              <span class="tag">Security</span>
+              <span class="tag">Encryption</span>
+            </div>
+          </div>
+        </div>
 
-      </section>
-    </main>
-  </section>
+        <!-- Pebble Watchfaces -->
+        <div class="project-card">
+          <div class="project-image">
+            <img src="assets/img/dogs-icon.png" alt="Pebble Development" style="object-fit: contain; padding: 20px;">
+          </div>
+          <div class="project-content">
+            <h3 class="project-title">Pebble Watchfaces</h3>
+            <p class="project-description">Custom watchface development for Pebble smartwatches. Active development continues through Rebble and RePebble platforms.</p>
+            <div class="project-links">
+              <a class="btn" href="https://dev-portal.rebble.io/profile" target="_blank" rel="noopener">Rebble Dev</a>
+              <a class="btn" href="https://appstore-api.repebble.com/dashboard" target="_blank" rel="noopener">Dashboard</a>
+            </div>
+            <div class="project-tags">
+              <span class="tag">Pebble</span>
+              <span class="tag">C</span>
+              <span class="tag">Wearables</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <!-- YELLOW BAND: Footer -->
-  <section class="band band-yellow">
-    <footer class="wrap footer">
-      <span>© NOAGAGIN • Built on GitHub Pages</span>
-    </footer>
-  </section>
+      <!-- Now Section -->
+      <div class="now-card">
+        <div class="now-content">
+          <div class="now-text">
+            <h2>Current Focus</h2>
+            <p>Building practical applications with modern web technologies. Focused on user experience, security, and performance optimization.</p>
+            <div class="now-actions">
+              <button class="btn" id="btnStatus">Check Status</button>
+              <button class="btn" id="btnInfo">More Info</button>
+            </div>
+          </div>
+          <div class="now-status">
+            <div class="status-label">Status</div>
+            <div class="status-value">Active Development</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
 
-  <!-- Toast -->
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <span>© 2025 NOAGAGIN — All Rights Reserved</span>
+        <span>Hosted on GitHub Pages</span>
+      </div>
+    </div>
+  </footer>
 
-  <!-- External script -->
-  <script src="script.js"></script>
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const toastEl = document.getElementById("toast");
+    const btnStatus = document.getElementById("btnStatus");
+    const btnInfo = document.getElementById("btnInfo");
+
+    function toast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      setTimeout(() => toastEl.classList.remove("show"), 3000);
+    }
+
+    btnStatus?.addEventListener("click", () => {
+      toast("System operational. All projects actively maintained.");
+    });
+
+    btnInfo?.addEventListener("click", () => {
+      toast("Open to collaboration and new opportunities.");
+    });
+  </script>
 </body>
 </html>
-
