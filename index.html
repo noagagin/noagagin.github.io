@@ -53,6 +53,36 @@
       flex-wrap: wrap;
     }
 
+    .brand-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .logo-cube {
+      width: 80px;
+      height: 80px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 2px solid var(--border);
+      background: var(--bg-card);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .logo-cube:hover {
+      border-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .logo-cube img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.3s ease;
+    }
+
     .brand h1 {
       font-size: 48px;
       font-weight: 700;
@@ -297,6 +327,12 @@
         flex-direction: column;
       }
 
+      .brand-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
       .brand h1 {
         font-size: 36px;
       }
@@ -321,9 +357,14 @@
   <header>
     <div class="container">
       <div class="header-content">
-        <div class="brand">
-          <h1>NOAGAGIN</h1>
-          <p class="tagline">Developer & Creator — Building Digital Solutions</p>
+        <div class="brand-wrapper">
+          <div class="logo-cube" id="logoCube">
+            <img src="assets/img/nglogo.png" alt="NOAGAGIN Logo" id="logoImg">
+          </div>
+          <div class="brand">
+            <h1>NOAGAGIN</h1>
+            <p class="tagline">Developer & Creator — Building Digital Solutions</p>
+          </div>
         </div>
         <nav>
           <a class="nav-link" href="https://www.goodreads.com/review/list/7566580-noa" target="_blank" rel="noopener">Reading List</a>
@@ -360,7 +401,7 @@
         <!-- MyPass -->
         <div class="project-card">
           <div class="project-image">
-            <img src="assets/img/mypass.png" alt="MyPass">
+            <img src="assets/img/mypass.jpg" alt="MyPass">
           </div>
           <div class="project-content">
             <h3 class="project-title">MyPass</h3>
@@ -433,12 +474,43 @@
     const toastEl = document.getElementById("toast");
     const btnStatus = document.getElementById("btnStatus");
     const btnInfo = document.getElementById("btnInfo");
+    const logoCube = document.getElementById("logoCube");
+    const logoImg = document.getElementById("logoImg");
+
+    let isDogsVisible = false;
+    let clickCount = 0;
+    let clickTimer = null;
 
     function toast(msg) {
       toastEl.textContent = msg;
       toastEl.classList.add("show");
       setTimeout(() => toastEl.classList.remove("show"), 3000);
     }
+
+    // Logo double-click handler
+    logoCube?.addEventListener("click", () => {
+      clickCount++;
+      
+      if (clickCount === 1) {
+        clickTimer = setTimeout(() => {
+          clickCount = 0;
+        }, 300);
+      } else if (clickCount === 2) {
+        clearTimeout(clickTimer);
+        clickCount = 0;
+        
+        // Toggle between logo and dogs
+        if (!isDogsVisible) {
+          logoImg.src = "assets/img/funnydogs.jpg";
+          toast("Meet the muses! 🐕✨");
+          isDogsVisible = true;
+        } else {
+          logoImg.src = "assets/img/nglogo.png";
+          toast("Back to business 💼");
+          isDogsVisible = false;
+        }
+      }
+    });
 
     btnStatus?.addEventListener("click", () => {
       toast("System operational. All projects actively maintained.");
@@ -450,4 +522,3 @@
   </script>
 </body>
 </html>
-
